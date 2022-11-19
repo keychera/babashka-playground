@@ -7,3 +7,7 @@ quick start
 nrepl
 
     bb nrepl-server
+
+etaoin
+
+    bb -m try_etaoin.clj
