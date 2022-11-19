@@ -2,4 +2,4 @@
 
 quick start
 
-    bb --nrepl-server
+    bb runner.clj
