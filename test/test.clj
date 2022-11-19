@@ -1,5 +1,10 @@
 (ns test
-  (:require [clojure.test :refer [deftest is testing]]))
+  (:require [clojure.test :refer [deftest is testing]]
+            [chera :refer [hello]]))
+
+(deftest hello-works
+  (testing "Are you polite?"
+    (is (= (hello "me") "not true"))))
 
 (deftest type-system-works
   (testing "Is type system working?"
