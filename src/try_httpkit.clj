@@ -9,9 +9,12 @@
 
 (def port 4242)
 
-(run-server app {:port port})
+(defn -main [& _]
+ (let [url (str "http://localhost:" port "/")]
+   (run-server app {:port port})
+   (println "serving" url)
+   @(promise))
+  )
 
-(println "Starting http server at" port)
-(browse/browse-url (str "http://localhost:" port "/"))
-
-@(promise)
+(when (= *file* (System/getProperty "babashka.file"))
+  (apply -main *command-line-args*))
