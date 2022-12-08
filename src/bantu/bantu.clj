@@ -1,10 +1,8 @@
 (ns bantu.bantu
-  (:require [bantu.common :refer [from-here]]
-            [clojure.core.match :as match]
+  (:require [clojure.core.match :as match]
             [clojure.string :as str]
+            [hiccup2.core :refer [html]]
             [org.httpkit.server :refer [run-server]]))
-
-(def home (slurp (from-here "home.html")))
 
 (def port 4242)
 (def url (str "http://localhost:" port "/"))
@@ -12,7 +10,14 @@
 (defn app [req]
   {:status  200
    :headers {"Content-Type" "text/html"}
-   :body home})
+   :body (str (html [:html
+                     [:head
+                      [:link {:rel "stylesheet" :href "/Users/keychera/Documents/projects/babashka-playground/resources/public/css/style.css"}]
+                      [:script {:src "https://unpkg.com/htmx.org@1.6.1"}]]
+                     [:body
+                      [:div
+                       [:script {:src "https://unpkg.com/htmx.org@1.8.4"}]
+                       [:button {:hx-post "/clicked", :hx-swap "outerHTML" :class "bantucss"} "Click Me"]]]]))})
 
 (defn clicked [req]
   {:status  200
